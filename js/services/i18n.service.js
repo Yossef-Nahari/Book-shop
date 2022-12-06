@@ -1,77 +1,112 @@
 var gTrans = {
     title: {
-        en: 'What Todo?',
-        es: 'Mis Cosas Por Hacer',
-        he: 'משימות'
+        en: 'Welcome to iBook',
+        he: '!ברוכים הבאים לאייבוק'
     },
-    subtitle: {
-        en: 'MVC - Model-View-Controller',
-        es: 'MVC - Modelo-Vista-Controlador',
-        he: 'מודל - ויו - קונטרולר',
+    filter: {
+        en: 'Filter',
+        he: 'סינון',
     },
-    'filter-all': {
-        en: 'All',
-        es: 'Todos',
-        he: 'הכל',
+    "min-rate": {
+        en: 'Min Rate',
+        he: 'רייטינג מינ\'',
     },
-    'filter-active': {
-        en: 'Active',
-        es: 'Activo',
-        he: 'פעיל'
+    "max-price": {
+        en: 'Max Price',
+        he: 'מחיר מקס\'',
     },
-    'filter-done': {
-        en: 'Done',
-        es: 'Completo',
-        he: 'הושלם',
+    placeHolder: {
+        en: 'Search book...',
+        he: 'חיפוש ספר',
     },
-    'stat-todo-label': {
-        en: 'Todo',
-        es: 'Hacer',
-        he: 'לעשות',
+    "sort-head": {
+        en: 'Sort by',
+        he: ':סינון לפי',
     },
-    'stat-active-label': {
-        en: 'Active',
-        es: 'Activo',
-        he: 'פעיל',
+    "select-sorting": {
+        en: 'Select Sorting',
+        he: 'בחירת סינון',
     },
-    add: {
-        en: 'Add',
-        es: 'Aggregar',
-        he: 'הוסף',
+    "rate-sort": {
+        en: 'By Rate',
+        he: 'לפי רייטינג',
     },
-    sure: {
-        en: 'Are you sure?',
-        es: 'Estas Seguru?',
-        he: 'בטוח נשמה?',
+    "price-sort": {
+        en: 'By Price',
+        he: 'לפי מחיר',
     },
-    'add-todo-placeholder': {
-        en: 'What needs to be done?',
-        es: 'Que te tienes que hacer?',
-        he: 'מה יש לעשות?'
-    }
+    Descending: {
+        en: 'Descending',
+        he: 'סינון-סדר-יורד',
+    },
+    new: {
+        en: 'New',
+        he: 'חדש',
+    },
+    lang: {
+        en: 'Language:',
+        he: 'שפה:',
+    },
+    eng: {
+        en: 'English:',
+        he: 'אנגלית',
+    },
+    heb: {
+        en: 'Hebrew:',
+        he: 'עברית',
+    },
+    id: {
+        en: 'id',
+        he: 'מק"ט',
+    },
+    "book-title": {
+        en: 'title',
+        he: 'שם הספר',
+    },
+    "img": {
+        en: 'preview',
+        he: 'תצוגה',
+    },
+    rate: {
+        en: 'rate',
+        he: 'דירוג'
+    },
+    popular: {
+        en: 'popular',
+        he: 'פופולריות',
+    },
+    price: {
+        en: 'price',
+        he: 'מחיר',
+    },
+    read: {
+        en: 'read',
+        he: 'קריאה',
+    },
+    update: {
+        en: 'update',
+        he: 'עדכון',
+    },
+    delete: {
+        en: 'delete',
+        he: 'מחיקה',
+    },
 }
 
 var gCurrLang = 'en'
 
 function getTrans(transKey) {
-    // done: if key is unknown return 'UNKNOWN'
     const key = gTrans[transKey]
     if (!key) return 'UNKNOWN'
 
-    // done: get from gTrans
     var translation = key[gCurrLang]
 
-    // done: If translation not found - use english
     if (!translation) translation = key.en
 
     return translation
 }
 
 function doTrans() {
-    // done: 
-    // var els = document.querySelectorAll('[data-trans]'
-    // for each el:
-    //    get the data-trans and use getTrans to replace the innerText 
     var els = document.querySelectorAll('[data-trans]')
     els.forEach(el => {
         const transKey = el.dataset.trans
@@ -79,63 +114,15 @@ function doTrans() {
 
         el.innerText = translation
 
-        // done: support placeholder    
         if (el.placeholder) el.placeholder = translation
     })
 }
 
 function setLang(lang) {
     gCurrLang = lang
+    return gCurrLang
 }
 
-
-
-
-function formatNumSimple(num) {
-    return num.toLocaleString('es')
-}
-
-function formatNum(num) {
-    return new Intl.NumberFormat(gCurrLang).format(num)
-}
-
-function formatCurrency(num) {
-    return new Intl.NumberFormat('he-IL', { style: 'currency', currency: 'ILS' }).format(num)
-}
-
-function formatDate(time) {
-    var options = {
-        year: 'numeric', month: 'short', day: 'numeric',
-        hour: 'numeric', minute: 'numeric',
-        hour12: true,
-    }
-
-    return new Intl.DateTimeFormat(gCurrLang, options).format(time)
-}
-
-// Kilometers to Miles
-function kmToMiles(km) {
-    return km / 1.609
-}
-
-// Kilograms to Pounds:
-function kgToLbs(kg) {
-    return kg * 2.20462262185
-}
-
-
-function getPastRelativeFrom(ts) {
-    const diff = Date.now() - new Date(ts)
-    const seconds = diff / 1000
-    const minutes = seconds / 60
-    const hours = minutes / 60
-    const days = hours / 24
-
-    const formatter = new Intl.RelativeTimeFormat('en-US', {
-        numeric: 'auto'
-    })
-    if (seconds <= 60) return formatter.format(-seconds, 'seconds')
-    if (minutes <= 60) return formatter.format(-minutes, 'minutes')
-    if (hours <= 24) return formatter.format(-hours, 'hours')
-    return formatter.format(-days, 'days')
+function getLang() {
+    return gCurrLang
 }

@@ -9,15 +9,15 @@ function renderBooks() {
     var books = getBooks()
     var headStrHTML =
         `<tr>\n
-    <th class = "th id" onclick="onSortClick()"> id </th>\n
-    <th class = "th title" onclick="onSortClick()"> title </th>\n
-    <th class = "th img"> preview </th>\n
-    <th class = "th rate" onclick="onSortClick()"> rate </th>\n
-    <th class = "th popular"> popular </th>\n
-    <th class = "th price" onclick="onSortClick()"> price </th>\n
-    <th class = "th read"> read </th>\n
-    <th class = "th update"> update </th>\n
-    <th class = "th delete"> delete </th>\n
+    <th data-trans="id" class = "th id" onclick="onSortClick()"> id </th>\n
+    <th data-trans="book-title" class = "th title" onclick="onSortClick()"> title </th>\n
+    <th data-trans="img" class = "th img"> preview </th>\n
+    <th data-trans="rate" class = "th rate" onclick="onSortClick()"> rate </th>\n
+    <th data-trans="popular" class = "th popular"> popular </th>\n
+    <th data-trans="price" class = "th price" onclick="onSortClick()"> price </th>\n
+    <th data-trans="read" class = "th read"> read </th>\n
+    <th data-trans="update" class = "th update"> update </th>\n
+    <th data-trans="delete" class = "th delete"> delete </th>\n
     </tr>\n`
     document.querySelector('.thread-container').innerHTML = headStrHTML
     var cellStrHTML = books.map(book =>
@@ -169,5 +169,14 @@ function onPrevPage() {
 
 function renderCurrentPage() {
     const elPage = document.querySelector('.page-number')
-    elPage.innerText = `page ${getPageNumber()}`
+    if (getLang() === 'en') elPage.innerText = `page ${getPageNumber()}`
+    else elPage.innerText = `עמוד ${getPageNumber()}`
+}
+
+function onSetLang(lang) {
+    setLang(lang)
+    if (lang === 'he') document.body.classList.add('rtl')
+    else document.body.classList.remove('rtl')
+    doTrans()
+    renderCurrentPage()
 }

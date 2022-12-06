@@ -12,43 +12,49 @@
 <body onload="onInit()">
 
     <header>
-        <h1>Welcome to <span class="i">i</span>Book <span>!</span></h1>
+        <h1 data-trans="title">Welcome to <span class="i">i</span>Book <span>!</span></h1>
     </header>
 
     <section class="book-filter">
-        <h2>Filter</h2>
+        <h2 data-trans="filter">Filter</h2>
         <label>
-            <p>Min Rate</p>
+            <p data-trans="min-rate">Min Rate</p>
             <input type="range" min="0" max="10" value="0" class="filter-rate-range"
                 onchange="this.title=this.value;onSetFilterBy({minRate: this.value})" />
-            <p>Max Price</p>
+            <p data-trans="max-price">Max Price</p>
             <input type="range" min="0" max="300" value="300" class="filter-price-range"
                 onchange="this.title=this.value;onSetFilterBy({maxPrice: this.value})" />
-            <!-- <br>Search: -->
-            <input class="search-input" type="text" onkeyup="onKeyUpSearch()" placeHolder="Search book...">
+            <input data-trans="placeHolder" class="search-input" type="text" onkeyup="onKeyUpSearch()"
+                placeHolder="Search book...">
         </label>
         <hr />
         <div class="sortWord">
-            Sort by:
+            <span data-trans="sort-head">Sort by:</span>
             <br>
             <select class="sort-by" onchange="onSetSortBy()">
-                <option value="">Select Sorting</option>
-                <option value="rate">By Rate</option>
-                <option value="maxPrice">Price</option>
+                <option data-trans="select-sorting" value="">Select Sorting</option>
+                <option data-trans="rate-sort" value="rate">By Rate</option>
+                <option data-trans="price-sort" value="maxPrice">By Price</option>
             </select>
             <label>
-                Descending
+                <span data-trans="Descending">Descending</span>
                 <input class="sort-desc" type="checkbox" onchange="onSetSortBy()" />
             </label>
             <hr>
-            <!-- <label class="btns-pages"> -->
             <button id="btn-prev" class="page-btn prev" onclick="onPrevPage()">&#60</button>
             <span class="page-number"></span>
             <button id="btn-next" class="page-btn next" onclick="onNextPage()">&#62</button>
-            <!-- </label> -->
         </div>
         <hr />
-        <button class="addBtn" onclick="onAddBook()"><span class="span-add">New</span> 📗</button>
+        <button class="addBtn" onclick="onAddBook()"><span data-trans="new" class="span-add">New</span> 📗</button>
+        <hr />
+        <div class="lang-area">
+            <p data-trans="lang" id="lang">Language:</p>
+            <select id="language" onchange="onSetLang(this.value)">
+                <option data-trans="eng" value="en">English</option>
+                <option data-trans="heb" value="he">Hebrew</option>
+            </select>
+        </div>
     </section>
 
     <table>
@@ -79,6 +85,7 @@
     <div class="user-msg"></div>
 
     <script src="js/util.js"></script>
+    <script src="js/services/i18n.service.js"></script>
     <script src="js/services/storage-service.js"></script>
     <script src="js/services/book-shop-service.js"></script>
     <script src="js/controller.js"></script>
