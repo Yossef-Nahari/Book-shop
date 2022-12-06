@@ -24,7 +24,7 @@ function renderBooks() {
         `<tr>\n
     <td class = "cell id" > #${book.id} </td>\n
     <td class = "cell title"> 📗 ${book.title} </td>\n
-    <td class = "cell img"><img src="../img/${book.title}.webp" alt="No preview"></td>\n
+    <td class = "cell img"><img src="/img/${book.title}.webp" alt="No preview"></td>\n
     <td class = "cell rate"> ${book.rate}# </td>\n
     <td class = "cell popular"> ${checkPopularity(book)} </td>\n
     <td class = "cell price"> 💲${book.price} </td>\n
